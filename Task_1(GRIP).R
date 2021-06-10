@@ -1,7 +1,7 @@
 # GRIP
 # Task_1- Prediction Using Supervised ML
 # By Aayush
-# To predict the percentage of marks of students based on the number they studied
+# To predict the percentage of marks of students based on the number of hours they studied
 
 
 # import the required libraries if this is the first time
@@ -14,7 +14,7 @@ url<-'https://raw.githubusercontent.com/AdiPersonalWorks/Random/master/student_s
 ds<-read.csv(url)
 head(ds,10)
 
-# Chesk for NULL values using is.null()
+# Check for NULL values using is.null()
 is.null(ds)
 
 # Plot the variables into a scatter plot using the package ggplot2
@@ -35,8 +35,12 @@ set.seed(21)
 Split_data <- sample(nrow(ds),0.8*nrow(ds))
 train <- ds[Split_data,]
 test <- ds[-Split_data,]
+
+# Divide the coloumns of training set as x_train(input) and y_train(output)
 x_train=train$Hours 
 y_train=train$Scores
+
+# Divide the coloumns of testing set as x_test(input) and y_test(output)
 x_test=test$Hours
 y_test=test$Scores
 
@@ -59,6 +63,8 @@ c_score
 # we can now obtain predicted score for input of hours
 a=summary(Linear_model)
 a
+# From summary of linear_model we use coefficients of Estimate std. column
+# so that predicted_value(y)= 2.4681+9.8627*(input_value(x)) 
 hours = 9.25
 own_pred = a$coefficients[1,1]+a$coefficients[2,1]*hours
 paste('hours :',hours)
@@ -73,3 +79,4 @@ paste('Root Mean Squared Error :',Root_Mean_Squared_Error)
 
 # The model is more accurate when the value of RMSE is small
 # According to the model if a student studies 9.25 hrs/day, he/she is likely to score 93.7%
+
